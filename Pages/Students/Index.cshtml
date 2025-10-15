@@ -1,0 +1,45 @@
+@page
+@model project.Page.Students.IndexModel
+
+<div class="page-head">
+      <h2>Students</h2>
+      <div>
+        @* <input id="student-search" placeholder="Search students..." /> *@
+        
+        <a asp-page="/Students/Create" id="btn-new-student" class="btn">New Student</a>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="nice-table" id="students-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Enrolled Courses</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach(var student in Model?.Students)
+          {
+            <tr>
+              <td>
+                @student.Name
+              </td>
+              <td>
+                @student.Email
+              </td>
+              <td>
+                @student.EnrolledCourses.Count
+              </td>
+              <td>
+                <a asp-page="/Students/Read" asp-route-id="@student.Id" class="btn small">Details</a>
+                <a asp-page="/Students/Edit" asp-route-id="@student.Id" class="btn small">Edit</a>
+                <a asp-page="/Students/Delete" asp-route-id="@student.Id" class="btn small">Delete</a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>

@@ -1,0 +1,32 @@
+@page
+@model project.Page.Courses.CreateModel
+
+<form method="post" class="card">
+        <h2>Create New Course</h2>
+
+        <label asp-for="Course.Title"></label>
+        <input asp-for="Course.Title" type="text" id="title" placeholder="Enter course title" />
+        <span asp-validation-for="Course.Title"></span>
+
+        <label asp-for="Course.Description"></label>
+        <textarea asp-for="Course.Description" id="description" placeholder="Enter course description"></textarea>
+        <span asp-validation-for="Course.Description"></span>
+
+        <label asp-for="Course.Exerpt"></label>
+        <input asp-for="Course.Exerpt" id="exerpt" placeholder="Enter course exerpt">
+        <span asp-validation-for="Course.Exerpt"></span>
+
+        <label asp-for="Course.ImageUrl"></label>
+        <input asp-for="Course.ImageUrl" id="image-url" placeholder="Enter course image-url">
+        <span asp-validation-for="Course.ImageUrl"></span>
+
+        <label asp-for="Course.InstructorId"></label>
+        <select asp-for="Course.InstructorId" id="instructor" asp-items="@Model.InstructorList">
+          <option>Select Instructor</option>
+        </select>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Create Course</button>
+          <a asp-page="/Courses/Index" class="btn secondary">Cancel</a>
+        </div>
+      </form>

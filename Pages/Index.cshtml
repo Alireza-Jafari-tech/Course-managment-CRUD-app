@@ -1,0 +1,91 @@
+﻿@page
+@model project.Pages.IndexModel
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<style>
+    .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .course-card {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .course-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .course-content {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .course-content h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .excerpt {
+        flex-grow: 1;
+        color: #555;
+        margin-bottom: 0.75rem;
+    }
+
+    .instructor {
+        font-size: 0.9rem;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .btn-view {
+        background: #58A0C8;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .btn-view:hover {
+        background: #34699A;
+        color: #fff;
+    }
+</style>
+
+<h2 class="text-center mb-4">Available Courses</h2>
+
+<div class="course-grid">
+    @foreach (var course in Model.Courses)
+    {
+        <div class="course-card">
+            <img src="@course.ImageUrl" alt="@course.Title" class="course-image" />
+            <div class="course-content">
+                <h3>@course.Title</h3>
+                <p class="excerpt">@course.Exerpt</p>
+                <p class="instructor"><strong>Instructor:</strong> @course.Instructor.Name</p>
+                <a asp-page="/Courses/Read" asp-route-id="@course.Id" class="btn-view">View Details</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,56 @@
+@page "{id:int}"
+@model project.Page.Instructors.ReadModel
+
+<style>
+  /* ===== Instructor Details Page ===== */
+.details-container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.instructor-details .info {
+  margin-bottom: 1.5rem;
+}
+
+.instructor-details p {
+  margin-bottom: 0.5rem;
+}
+
+.course-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+
+.course-list li {
+  background: #ecf0f1;
+  margin-bottom: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+}
+
+</style>
+
+<section class="card instructor-details">
+        <h2>Instructor Profile</h2>
+        <div class="info">
+          <p><strong>Name:</strong> <span id="instructor-name">@Model.Instructor.Name</span></p>
+          <p><strong>Email:</strong> <span id="instructor-email">@Model.Instructor.Email</span></p>
+        </div>
+
+        <h3>Courses Taught</h3>
+        <ul class="course-list" id="instructor-courses">
+          @foreach(var course in @Model.Instructor.CoursesTaught)
+          {
+            <li>
+              @course.Title
+            </li>
+          }
+        </ul>
+
+        <div class="form-actions">
+          <a asp-page="Instructor/Edit" class="btn primary">Edit Instructor</a>
+          <a asp-page="Instructor" class="btn secondary">Back to List</a>
+        </div>
+      </section>

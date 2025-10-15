@@ -1,0 +1,46 @@
+@page
+@model project.Page.Students.CreateModel
+
+<form method="post" class="card">
+        <h2>Create New Student</h2>
+
+        <label asp-for="Student.Name"></label>
+        <input
+        asp-for="Student.Name"
+          type="text"
+          id="name"
+          
+          placeholder="Enter full name"
+          
+        />
+        <span asp-validation-for="Student.Name"></span>
+
+        <label asp-for="Student.Email"></label>
+        <input
+        asp-for="Student.Email"
+          type="email"
+          id="email"
+          
+          placeholder="Enter email address"
+          
+        />
+        <span asp-validation-for="Student.Name"></span>
+
+
+        <label asp-for="Student.Password"></label>
+        <input
+        asp-for="Student.Password"
+          type="password"
+          id="password"
+          
+          placeholder="Enter password"
+          
+        />
+        <span asp-validation-for="Student.Password"></span>
+
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Create Student</button>
+          <a asp-page="Index" class="btn secondary">Cancel</a>
+        </div>
+      </form>

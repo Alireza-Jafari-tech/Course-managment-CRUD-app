@@ -1,0 +1,45 @@
+@page "/Courses/Edit/{id:int}"
+@model project.Page.Courses.EditModel
+
+<style>
+    .course-image {
+        width: 300px;
+        margin: auto;
+        border-radius: 10px;
+    }
+</style>
+
+<form method="post" class="card">
+    
+    <h2>Edit Course</h2>
+
+    <img class="course-image" src="@Model.Course.ImageUrl">
+
+    <label asp-for="Course.Title"></label>
+    <input asp-for="Course.Title" type="text" id="name" placeholder="Enter full name" />
+    <span asp-validation-for="Course.Title"></span>
+
+    <label asp-for="Course.Exerpt"></label>
+    <input asp-for="Course.Exerpt" type="text" id="exerpt" placeholder="Enter exerpt" />
+    <span asp-validation-for="Course.Exerpt"></span>
+
+    <label asp-for="Course.Description"></label>
+    <textarea asp-for="Course.Description" type="text" id="description" placeholder="Enter description"></textarea>
+    <span asp-validation-for="Course.Description"></span>
+
+    <label asp-for="Course.ImageUrl"></label>
+    <input asp-for="Course.ImageUrl" type="text" id="image-url" placeholder="Enter Image Url" />
+    <span asp-validation-for="Course.ImageUrl"></span>
+
+    <label asp-for="Course.InstructorId"></label>
+    <select asp-for="Course.InstructorId" id="instructor" asp-items="@Model.InstructorList">
+        <option>Select Instructor</option>
+    </select>
+
+    <input type="hidden" asp-for="Course.Id">
+
+    <div class="form-actions">
+        <button type="submit" class="btn primary">Edit Course</button>
+        <a asp-page="/Courses/Index" class="btn secondary">Cancel</a>
+    </div>
+</form>

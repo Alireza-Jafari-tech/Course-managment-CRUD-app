@@ -1,0 +1,25 @@
+@page "/Students/Edit/{id:int}"
+@model project.Page.Students.EditModel
+
+<form method="post" class="card">
+        <h2>Edit Student</h2>
+
+        <label asp-for="Student.Name"></label>
+        <input asp-for="Student.Name" type="text" id="name" placeholder="Enter full name" />
+        <span asp-validation-for="Student.Name"></span>
+
+        <label asp-for="Student.Email"></label>
+        <input asp-for="Student.Email" type="email" id="email" placeholder="Enter email address" />
+        <span asp-validation-for="Student.Name"></span>
+
+        <label asp-for="Student.Password"></label>
+        <input asp-for="Student.Password" type="password" id="password" placeholder="Enter password" />
+        <span asp-validation-for="Student.Password"></span>
+
+        <input type="hidden" asp-for="Student.Id">
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Edit Student</button>
+          <a asp-page="/Students/Index" class="btn secondary">Cancel</a>
+        </div>
+      </form>

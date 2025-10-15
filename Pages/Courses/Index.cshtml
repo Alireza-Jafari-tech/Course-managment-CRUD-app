@@ -1,0 +1,38 @@
+@page
+@model project.Page.Courses.IndexModel
+
+<div class="page-head">
+      <h2>Courses</h2>
+      <div>
+        @* <input id="course-search" placeholder="Search courses..." /> *@
+        <a asp-page="/Courses/Create" id="btn-new-course" class="btn">New Course</a>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="nice-table" id="courses-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Instructor</th>
+            <th>Students Enrolled</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach(var course in Model.Courses)
+          {
+            <tr>
+              <td>@course.Title</td>
+              <td>@course.Instructor.Name</td>
+              <td>@course.Students.Count</td>
+              <td>
+                <a asp-page="/Courses/Read" class="btn small" asp-route-id="@course.Id">Details</a>
+                <a asp-page="/Courses/Edit" class="btn small" asp-route-id="@course.Id">Edit</a>
+                <a asp-page="/Courses/Delete" class="btn small" asp-route-id="@course.Id">Delete</a>
+              </td>
+              </tr>
+          }
+        </tbody>
+      </table>
+    </div>

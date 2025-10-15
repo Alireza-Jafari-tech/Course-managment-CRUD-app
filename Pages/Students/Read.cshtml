@@ -1,0 +1,55 @@
+@page "{id:int}"
+@model project.Page.Students.ReadModel
+
+<style>
+  /* ===== Student Details Page ===== */
+.details-container {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.student-details .info {
+  margin-bottom: 1.5rem;
+}
+
+.student-details p {
+  margin-bottom: 0.5rem;
+}
+
+.course-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 1.5rem;
+}
+
+.course-list li {
+  background: #ecf0f1;
+  margin-bottom: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+}
+</style>
+
+<section class="card student-details">
+        <h2>Student Profile</h2>
+        <div class="info">
+          <p><strong>Name:</strong> <span id="student-name">@Model.Student.Name</span></p>
+          <p><strong>Email:</strong> <span id="student-email">@Model.Student.Email</span></p>
+        </div>
+
+        <h3>Enrolled Courses</h3>
+        <ul class="course-list" id="student-courses">
+          @foreach(var course in Model.Student.EnrolledCourses)
+          {
+            <li>
+              @course.Title
+            </li>
+          }
+        </ul>
+
+        <div class="form-actions">
+          <a asp-page="Student/Edit" class="btn primary">Edit Student</a>
+          <a asp-page="Student" class="btn secondary">Back to List</a>
+        </div>
+      </section>

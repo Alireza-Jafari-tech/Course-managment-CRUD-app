@@ -1,0 +1,42 @@
+@page "/Courses/Delete/{id:int}"
+@model project.Pages.Courses.DeleteModel
+
+<style>
+    .course-image {
+        width: 300px;
+        margin: auto;
+        border-radius: 10px;
+    }
+</style>
+
+<form method="post" class="card">
+    
+    <h2>Delete Course</h2>
+
+    <img class="course-image" src="@Model.Course.ImageUrl">
+
+    <input asp-for="Course.Id" type="hidden" />
+
+    <label asp-for="Course.Title"></label>
+    <input asp-for="Course.Title" type="text" readonly />
+
+    <label asp-for="Course.Exerpt"></label>
+    <input asp-for="Course.Exerpt" type="text" readonly />
+
+    <label asp-for="Course.Description"></label>
+    <textarea asp-for="Course.Description" readonly></textarea>
+
+    <label asp-for="Course.ImageUrl"></label>
+    <input asp-for="Course.ImageUrl" type="text" readonly />
+
+    <!--<label asp-for="Course.InstructorId"></label>
+    <input asp-for="Course.InstructorId" type="text" readonly />-->
+
+    <label asp-for="Course.Instructor"></label>
+    <input value="@Model.Course.Instructor.Name" type="text" readonly />
+
+    <div class="form-actions">
+        <button type="submit" class="btn danger">Delete</button>
+        <a asp-page="/Courses/Index" class="btn secondary">Cancel</a>
+    </div>
+</form>

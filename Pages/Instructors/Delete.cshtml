@@ -1,0 +1,23 @@
+@page "/Instructors/Delete/{id:int}"
+@model project.Pages.Instructors.DeleteModel
+
+<form method="post" class="card">
+  
+    <h2>Delete Instructor</h2>
+
+    <input asp-for="Instructor.Id" type="hidden" />
+
+    <label asp-for="Instructor.Name"></label>
+    <input asp-for="Instructor.Name" type="text" readonly />
+
+    <label asp-for="Instructor.Email"></label>
+    <input asp-for="Instructor.Email" type="email" readonly />
+
+    <label asp-for="Instructor.Password"></label>
+    <input asp-for="Instructor.Password" type="password" />
+
+    <div class="form-actions">
+        <button type="submit" class="btn danger">Delete</button>
+        <a asp-page="/Instructors/Index" class="btn secondary">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,573 @@
+@page "{id:int}"
+@model project.Pages.Courses.ReadModel
+
+<style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 2.5rem;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 320px;
+            object-fit: fill;
+            display: block;
+        }
+
+        .course-content {
+            padding: 2rem;
+        }
+
+        .course-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .instructor {
+            display: flex;
+            align-items: center;
+            margin-right: 1.5rem;
+        }
+
+        .instructor i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .date {
+            display: flex;
+            align-items: center;
+        }
+
+        .date i {
+            margin-right: 0.5rem;
+            color: var(--gray);
+        }
+
+        .course-description {
+            font-size: 1.125rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .course-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            color: #fff !important;
+        }
+
+        .btn-back {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+
+        .btn-back:hover {
+            color: #000 !important;
+        }
+
+        .btn-back i {
+            margin-right: 0.5rem;
+        }
+
+        .btn-enroll {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-enroll:hover {
+            /* background-color: var(--primary-dark); */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-enroll i {
+            margin-right: 0.5rem;
+        }
+		.comments-section {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+
+        .comments-list {
+            margin-bottom: 2.5rem;
+        }
+
+        .comment {
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .comment:hover {
+            border-color: #c1c7d0;
+        }
+
+        .comment-text {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .no-comments {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .comment-form {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .validation-error {
+            color: #e63946;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            flex-direction:column;
+            position: initial;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(20px);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+		.modal-title i {
+            margin-right: 0.75rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 2rem;
+            background: var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .register-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
+
+        @@media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .course-title {
+                font-size: 1.75rem;
+            }
+            
+            .course-content {
+                padding: 1.5rem;
+            }
+            
+            .comments-section {
+                padding: 1.5rem;
+            }
+            
+            .comment-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .course-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .modal {
+                width: 95%;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <!-- Course Details Card -->
+        <div class="course-card">
+            <img src="@Model.Course.ImageUrl"
+                 alt="@Model.Course.Title" class="course-image">
+            
+            <div class="course-content">
+                <h1 class="course-title">@Model.Course.Title</h1>
+                
+                <div class="course-meta">
+                    <div class="instructor">
+                        <i class="fas fa-user"></i>
+                        <strong>Instructor:</strong> @Model.Course.Instructor
+                    </div>
+                    <div class="date">
+                        <i class="far fa-calendar"></i>
+                        Created on @Model.Course.DateCreated.ToString()
+                    </div>
+                </div>
+                
+                <p class="course-description">
+                    @Model.Course.Description
+                </p>
+                
+                <div class="course-actions">
+                    <a href="/Courses/Index" class="btn btn-back">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Courses
+                    </a>
+                    <button asp-page-handler="Register" class="btn btn-enroll" id="enrollBtn">
+                        <i class="fas fa-graduation-cap"></i>
+                        Register Now
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h2 class="section-title">
+                <i class="far fa-comments"></i>
+                Comments
+            </h2>
+            
+            <div class="comments-list">
+            @if (Model.Course.Comments != null && Model.Course.Comments.Any())
+            {
+                foreach(var comment in Model.Course.Comments)
+                {
+                    <div class="comment">
+                    <p class="comment-text">@comment.CommentText</p>
+					<div class="comment-meta">
+                        <span>By: <strong class="comment-author">@comment.Name</strong></span>
+                        <span>@comment.CommentDate.ToString()</span>
+                    </div>
+                </div>
+                }
+            }
+            </div>
+            
+            <!-- Add Comment Form -->
+            <div class="comment-form">
+                <h3 class="section-title" style="font-size: 1.5rem;">
+                    <i class="far fa-edit"></i>
+                    Add a Comment
+                </h3>
+                
+                <form method="post" class="space-y-3">
+
+                    <div class="form-group">
+                        <label asp-for="NewComment.Name" class="form-label" ></label>
+                        <input asp-for="NewComment.Name" type="text" id="name" class="form-input" placeholder="Enter your name">
+                        <span asp-validation-for="NewComment.Name" class="validation-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="NewComment.Email" class="form-label"></label>
+                        <input asp-for="NewComment.Email" type="email" id="email" class="form-input" placeholder="Enter your email(optional)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="NewComment.CommentText" class="form-label" ></label>
+                        <textarea asp-for="NewComment.CommentText" id="comment" class="form-textarea" placeholder="Write your comment here..."></textarea>
+                        <span asp-validation-for="NewComment.CommentText" class="validation-error"></span>
+                    </div>
+                    
+                    <button asp-page-handler="Comment" type="submit" class="btn btn-submit" asp-route-id="@Model.Course.Id" >
+                        <i class="fas fa-paper-plane"></i>
+                        Post Comment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div class="modal-overlay" id="enrollmentModal">
+        <div class="modal">
+            <div class="modal-header" style="width: 100%;">
+                <h2 class="modal-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Register in Course
+                </h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" style="width: 100%;">
+                <form id="enrollmentForm">
+                    <div class="form-group">
+                        <label asp-for="Student.Name" class="form-label"></label>
+                        <input asp-for="Student.Name" type="text" id="enrollName" class="form-input" placeholder="Enter your full name">
+                        <span asp-validation-for="Student.Name"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Student.Email" class="form-label"></label>
+                        <input asp-for="Student.Email" type="email" id="enrollEmail" class="form-input" placeholder="Enter your email">
+                        <span asp-validation-for="Student.Email"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Student.Password" class="form-label"></label>
+                        <input asp-for="Student.Password" type="password" id="enrollPassword" class="form-input" placeholder="Create a password">
+                        <small style="color: var(--gray); margin-top: 0.25rem; display: block;">
+						Must be at least 8 characters long
+                        </small>
+                        <span asp-validation-for="Student.Password"></span>
+
+                        <button type="submit" form="enrollmentForm" class="btn btn-submit">
+                            <i class="fas fa-check"></i>
+                            Complete Registeration
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a asp-page="/Students/Create" class="register-link">
+                    <i class="fas fa-user-plus"></i>
+                    Already have an account? Sign in
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const enrollBtn = document.getElementById('enrollBtn');
+        const enrollmentModal = document.getElementById('enrollmentModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        enrollBtn.addEventListener('click', () => {
+            enrollmentModal.classList.add('active');
+        });
+        
+        closeModal.addEventListener('click', () => {
+            enrollmentModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        enrollmentModal.addEventListener('click', (e) => {
+            if (e.target === enrollmentModal) {
+                enrollmentModal.classList.remove('active');
+            }
+        });
+        
+        // Form submission
+        const enrollmentForm = document.getElementById('enrollmentForm');
+        @* enrollmentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you would typically send the data to your server
+            alert('Enrollment successful! Welcome to the course.');
+            enrollmentModal.classList.remove('active');
+        }); *@
+    </script>
