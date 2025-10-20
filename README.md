@@ -39,8 +39,6 @@ A practice project built to explore **Entity Framework Core** and **Razor Pages*
 
 ## 📸 Screenshots (Coming Soon)
 
-_You can add screenshots here once you have your UI ready._  
-For example:
 - Course list page
 <img width="1343" height="1545" alt="main-page" src="https://github.com/user-attachments/assets/13a59c67-2283-425f-89c9-936f6791e230" />
 
@@ -170,3 +168,4 @@ See the [LICENSE](LICENSE) file for details.
 
 This project is for learning purposes, but contributions are welcome!
 Feel free to fork, open issues, or submit pull requests to improve it.
+
